@@ -1,0 +1,16 @@
+[Unit]
+Description=Ghi chu ca nhan 2324802010174 (Gunicorn)
+After=network.target postgresql.service
+Requires=postgresql.service
+
+[Service]
+User=chuyenadmin
+Group=chuyenadmin
+WorkingDirectory=/opt/ghichu
+EnvironmentFile=/opt/ghichu/.env
+ExecStart=/opt/ghichu/.venv/bin/gunicorn --workers 2 --bind 127.0.0.1:8000 app:app
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target

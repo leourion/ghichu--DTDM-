@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="card narrow"><h1>{{ title }}</h1>
+<form method="post">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+  <label>Tên đăng nhập <input name="username" minlength="3" maxlength="50" required autocomplete="username"></label>
+  <label>Mật khẩu <input type="password" name="password" minlength="8" required autocomplete="{{ 'new-password' if action == 'register' else 'current-password' }}"></label>
+  <button>{{ title }}</button>
+</form>
+<p>{% if action == 'login' %}<a href="{{ url_for('register') }}">Chưa có tài khoản? Đăng ký</a>{% else %}<a href="{{ url_for('login') }}">Đã có tài khoản? Đăng nhập</a>{% endif %}</p>
+</section>
+{% endblock %}

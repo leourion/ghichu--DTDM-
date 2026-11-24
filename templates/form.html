@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="card"><h1>{{ title }}</h1>
+<form method="post">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+  <label>Tiêu đề <input name="title" maxlength="120" required value="{{ note.title if note else '' }}"></label>
+  <label>Nội dung <textarea name="content" rows="8">{{ note.content if note else '' }}</textarea></label>
+  <button>Lưu</button> <a href="{{ url_for('index') }}">Hủy</a>
+</form></section>
+{% endblock %}

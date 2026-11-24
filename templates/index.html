@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="heading"><h1>Ghi chú của tôi</h1><a class="button" href="{{ url_for('create_note') }}">+ Thêm ghi chú</a></div>
+{% if notes %}
+<div class="grid">{% for note in notes %}<article class="card">
+  <h2><a href="{{ url_for('view_note', note_id=note.id) }}">{{ note.title }}</a></h2>
+  <p class="preview">{{ note.content or 'Chưa có nội dung' }}</p>
+  <small>Cập nhật: {{ note.updated_at.strftime('%d/%m/%Y %H:%M') }}</small>
+  <p><a href="{{ url_for('edit_note', note_id=note.id) }}">Sửa</a> ·
+  <form class="inline" method="post" action="{{ url_for('delete_note', note_id=note.id) }}" onsubmit="return confirm('Xóa ghi chú này?')">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}"><button class="link danger">Xóa</button>
+  </form></p>
+</article>{% endfor %}</div>
+{% else %}<p class="card">Chưa có ghi chú. Bấm “Thêm ghi chú” để bắt đầu.</p>{% endif %}
+{% endblock %}

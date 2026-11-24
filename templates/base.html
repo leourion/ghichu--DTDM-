@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="vi"><head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>{{ title or 'Ghi chú cá nhân' }} · 2324802010174</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head><body>
+  <header><div class="wrap bar"><strong>Ghi chú cá nhân · 2324802010174</strong>
+  <nav>{% if session.get('user_id') %}
+    <a href="{{ url_for('index') }}">Danh sách</a> <a href="{{ url_for('create_note') }}">Thêm</a>
+    <span>{{ session.username }}</span>
+    <form class="inline" method="post" action="{{ url_for('logout') }}"><input type="hidden" name="csrf_token" value="{{ csrf_token }}"><button>Đăng xuất</button></form>
+  {% else %}<a href="{{ url_for('login') }}">Đăng nhập</a> <a href="{{ url_for('register') }}">Đăng ký</a>{% endif %}</nav></div></header>
+  <main class="wrap">
+    {% for message in get_flashed_messages() %}<p class="notice">{{ message }}</p>{% endfor %}
+    {% block content %}{% endblock %}
+  </main>
+</body></html>
